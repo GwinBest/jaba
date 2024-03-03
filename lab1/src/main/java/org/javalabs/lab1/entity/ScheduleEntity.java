@@ -1,14 +1,11 @@
 package org.javalabs.lab1.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
-@Table(name = "info_about_request")
+@Table(name = "schedule")
 public class ScheduleEntity {
 
     @Id
@@ -22,6 +19,17 @@ public class ScheduleEntity {
     private String facultyAbbrev;
     @Column(name = "course")
     private int course;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "schedule")
+    private List<AuditoryEntity> auditoryEntities;
+
+    public void setAuditoryEntities(List<AuditoryEntity> auditoryEntities) {
+        this.auditoryEntities = auditoryEntities;
+    }
+
+    public List<AuditoryEntity> getAuditoryEntities() {
+        return auditoryEntities;
+    }
 
     public int getId() {
         return id;

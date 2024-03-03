@@ -5,5 +5,6 @@ import  org.javalabs.lab1.entity.ScheduleEntity;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MyRepository extends JpaRepository<ScheduleEntity, Integer> {
+public interface ScheduleRepository extends JpaRepository<ScheduleEntity, Integer> {
+    ScheduleEntity findByGroupName(String  group);
 }
