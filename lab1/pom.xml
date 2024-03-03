@@ -14,7 +14,9 @@
     <name>lab1</name>
     <description>lab1</description>
     <properties>
-        <java.version>21</java.version>
+         <java.version>17</java.version>
+         <sonar.organization>gwinbest</sonar.organization>
+         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
     <dependencies>
         <dependency>
