@@ -1,7 +1,7 @@
-package org.javalabs.lab1.model.apiResponse;
+package org.javalabs.lab1.model.apiresponse;
 
-import org.javalabs.lab1.model.scheduleDto.Schedule;
-import org.javalabs.lab1.model.studentGroupDto.StudentGroupDto;
+import org.javalabs.lab1.model.scheduledto.Schedule;
+import org.javalabs.lab1.model.studentgroupdto.StudentGroupDto;
 
 import java.util.List;
 import java.util.Map;

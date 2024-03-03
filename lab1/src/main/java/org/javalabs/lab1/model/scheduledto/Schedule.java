@@ -1,7 +1,7 @@
-package org.javalabs.lab1.model.scheduleDto;
+package org.javalabs.lab1.model.scheduledto;
 
-import org.javalabs.lab1.model.emploeeDto.EmployeeDto;
-import org.javalabs.lab1.model.studentGroupDto.StudentGroupDto;
+import org.javalabs.lab1.model.emploeedto.EmployeeDto;
+import org.javalabs.lab1.model.studentgroupdto.StudentGroupDto;
 
 import java.util.List;
 

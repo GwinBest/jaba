@@ -1,6 +1,6 @@
 package org.javalabs.lab1.logic;
 
-import org.javalabs.lab1.model.apiResponse.ApiResponse;
+import org.javalabs.lab1.model.apiresponse.ApiResponse;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.client.HttpClientErrorException;
 

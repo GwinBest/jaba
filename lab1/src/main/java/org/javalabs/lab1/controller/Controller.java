@@ -1,9 +1,9 @@
 package org.javalabs.lab1.controller;
 
-import org.javalabs.lab1.model.apiResponse.ApiResponse;
+import org.javalabs.lab1.model.apiresponse.ApiResponse;
 import org.javalabs.lab1.logic.Logic;
-import org.javalabs.lab1.cacheManager.CacheManager;
 import org.springframework.boot.SpringApplication;
+import org.javalabs.lab1.cachemanager.CacheManager;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,9 +16,10 @@ public class Controller {
 	}
 	@GetMapping("/schedule")
 	public ApiResponse search(@RequestParam(value = "studentGroup") String query) {
+		CacheManager manager = new CacheManager();
 		Logic logic = new Logic();
 
-		return  logic.searchPage(query);
+		return  manager.getCachedSchedule(query, logic);
 
 	}
 

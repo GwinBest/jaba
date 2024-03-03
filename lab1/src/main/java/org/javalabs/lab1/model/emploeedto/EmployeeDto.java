@@ -1,4 +1,4 @@
-package org.javalabs.lab1.model.emploeeDto;
+package org.javalabs.lab1.model.emploeedto;
 
 import java.util.List;
 

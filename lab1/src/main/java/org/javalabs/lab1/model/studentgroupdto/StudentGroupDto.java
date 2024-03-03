@@ -1,4 +1,4 @@
-package org.javalabs.lab1.model.studentGroupDto;
+package org.javalabs.lab1.model.studentgroupdto;
 
 public class StudentGroupDto {
     private String name;
