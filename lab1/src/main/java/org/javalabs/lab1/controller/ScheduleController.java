@@ -11,6 +11,8 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 @RestController
 public class ScheduleController {
 	private final ScheduleService service;
+	private final String StatusCodeOK = "success";
+
 
 	public ScheduleController(ScheduleService service) {
 		this.service = service;
@@ -31,7 +33,7 @@ public class ScheduleController {
 		try {
 			service.createSchedule(scheduleEntity);
 
-			return ResponseEntity.ok("success");
+			return ResponseEntity.ok(StatusCodeOK);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error: " + e.getMessage());
 		}
@@ -47,7 +49,7 @@ public class ScheduleController {
 		try {
 			service.updateSchedule(id, scheduleEntity);
 
-			return ResponseEntity.ok("success");
+			return ResponseEntity.ok(StatusCodeOK);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error " + e.getMessage());
 		}
@@ -58,7 +60,7 @@ public class ScheduleController {
 		try {
 			service.deleteSchedule(id);
 
-			return ResponseEntity.ok("success");
+			return ResponseEntity.ok(StatusCodeOK);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}

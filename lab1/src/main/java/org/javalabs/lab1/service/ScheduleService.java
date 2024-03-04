@@ -19,7 +19,6 @@ public class ScheduleService {
     private final AuditoryRepository auditoryRepository;
     private final LessonTypeRepository lessonTypeRepository;
 
-
     public ScheduleRepository getTeacherScheduleRepository() {
         return teacherScheduleRepository;
     }
@@ -37,8 +36,7 @@ public class ScheduleService {
 
         RestTemplate restTemplate = new RestTemplate();
 
-        ApiResponse response = new ApiResponse();
-        response = restTemplate.getForObject(apiUrl, ApiResponse.class);
+        ApiResponse response = restTemplate.getForObject(apiUrl, ApiResponse.class);
 
         if (response != null)
         {
@@ -55,31 +53,7 @@ public class ScheduleService {
 
                 teacherScheduleRepository.save(scheduleEntity);
 
-                for (List<Schedule> scheduleList : response.getSchedules().values()) {
-                    for (Schedule schedule : scheduleList) {
-                        for (String auditory : schedule.getAuditories()) {
-                            AuditoryEntity auditoryEntity = new AuditoryEntity();
-                            auditoryEntity.setAuditoryNumber(auditory);
-                            auditoryEntity.setGroupName(response.getStudentGroupDto().getName());
-                            auditoryEntity.setStartTime(schedule.getStartLessonTime());
-                            auditoryEntity.setDate(schedule.getStartLessonDate());
-                            auditoryEntity.setSchedule(scheduleEntity);
-
-                            LessonType existingLessonType = lessonTypeRepository.findByType(
-                                    schedule.getLessonTypeAbbrev());
-                            if (existingLessonType == null) {
-                                LessonType lessonType = new LessonType();
-                                lessonType.setType(schedule.getLessonTypeAbbrev());
-                                lessonTypeRepository.save(lessonType);
-                                auditoryEntity.getLessonTypes().add(lessonType);
-                            } else {
-                                auditoryEntity.getLessonTypes().add(existingLessonType);
-                            }
-
-                            auditoryRepository.save(auditoryEntity);
-                        }
-                    }
-                }
+                FillTables(response, scheduleEntity);
             }
         } else
             return null;
@@ -87,6 +61,33 @@ public class ScheduleService {
         return response;
     }
 
+    public  void FillTables(ApiResponse response, ScheduleEntity scheduleEntity) {
+        for (List<Schedule> scheduleList : response.getSchedules().values()) {
+            for (Schedule schedule : scheduleList) {
+                for (String auditory : schedule.getAuditories()) {
+                    AuditoryEntity auditoryEntity = new AuditoryEntity();
+                    auditoryEntity.setAuditoryNumber(auditory);
+                    auditoryEntity.setGroupName(response.getStudentGroupDto().getName());
+                    auditoryEntity.setStartTime(schedule.getStartLessonTime());
+                    auditoryEntity.setDate(schedule.getStartLessonDate());
+                    auditoryEntity.setSchedule(scheduleEntity);
+
+                    LessonType existingLessonType = lessonTypeRepository.findByType(
+                            schedule.getLessonTypeAbbrev());
+                    if (existingLessonType == null) {
+                        LessonType lessonType = new LessonType();
+                        lessonType.setType(schedule.getLessonTypeAbbrev());
+                        lessonTypeRepository.save(lessonType);
+                        auditoryEntity.getLessonTypes().add(lessonType);
+                    } else {
+                        auditoryEntity.getLessonTypes().add(existingLessonType);
+                    }
+
+                    auditoryRepository.save(auditoryEntity);
+                }
+            }
+        }
+    }
     public ScheduleEntity createSchedule(ScheduleEntity scheduleEntity) {
         if (scheduleEntity == null) {
             throw new IllegalArgumentException("error");
