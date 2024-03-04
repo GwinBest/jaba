@@ -35,14 +35,14 @@ public class AuditoryEntity {
             joinColumns = @JoinColumn(name = "auditoryId"),
             inverseJoinColumns = @JoinColumn(name = "lessonTypeId")
     )
-    private List<LessonType> lessonTypes;
+    private List<LessonType> lessonTypes = new ArrayList<>();;
 
     public void setLessonTypes(List<LessonType> lessonTypes) {
         this.lessonTypes = lessonTypes;
     }
 
     public List<LessonType> getLessonTypes() {
-        return lessonTypes = new ArrayList<>();
+        return lessonTypes;
     }
 
     public String getDate() {

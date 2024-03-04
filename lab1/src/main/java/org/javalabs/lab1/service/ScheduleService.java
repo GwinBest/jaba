@@ -53,7 +53,7 @@ public class ScheduleService {
 
                 teacherScheduleRepository.save(scheduleEntity);
 
-                FillTables(response, scheduleEntity);
+                fillTables(response, scheduleEntity);
             }
         } else
             return null;
@@ -61,7 +61,7 @@ public class ScheduleService {
         return response;
     }
 
-    public  void FillTables(ApiResponse response, ScheduleEntity scheduleEntity) {
+    public  void fillTables(ApiResponse response, ScheduleEntity scheduleEntity) {
         for (List<Schedule> scheduleList : response.getSchedules().values()) {
             for (Schedule schedule : scheduleList) {
                 for (String auditory : schedule.getAuditories()) {

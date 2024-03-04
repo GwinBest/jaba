@@ -10,6 +10,8 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 @RestController
 public class AuditoryController {
     private final AuditoryService service;
+    private static final String STATUS_CODE_OK = "success";
+
 
     public AuditoryController(AuditoryService service) {
         this.service = service;
@@ -35,7 +37,7 @@ public class AuditoryController {
 
         try {
             service.createAuditory(auditoryEntity, group);
-            return ResponseEntity.ok("success");
+            return ResponseEntity.ok(STATUS_CODE_OK);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error: " + e.getMessage());
         }
@@ -50,7 +52,7 @@ public class AuditoryController {
 
         try {
             service.updateAuditory(id, auditoryDto);
-            return ResponseEntity.ok("success");
+            return ResponseEntity.ok(STATUS_CODE_OK);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error " + e.getMessage());
         }
@@ -60,7 +62,7 @@ public class AuditoryController {
     public ResponseEntity<String> deleteAuditory(@PathVariable("id") int id) {
         try {
             service.deleteAuditory(id);
-            return ResponseEntity.ok("success");
+            return ResponseEntity.ok(STATUS_CODE_OK);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
