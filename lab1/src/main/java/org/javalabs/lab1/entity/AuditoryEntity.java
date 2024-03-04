@@ -35,7 +35,7 @@ public class AuditoryEntity {
             joinColumns = @JoinColumn(name = "auditoryId"),
             inverseJoinColumns = @JoinColumn(name = "lessonTypeId")
     )
-    private List<LessonType> lessonTypes = new ArrayList<>();;
+    private List<LessonType> lessonTypes = new ArrayList<>();
 
     public void setLessonTypes(List<LessonType> lessonTypes) {
         this.lessonTypes = lessonTypes;
