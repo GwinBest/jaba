@@ -2,6 +2,9 @@ package org.javalabs.lab1.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "auditory")
 public class AuditoryEntity {
@@ -25,6 +28,22 @@ public class AuditoryEntity {
     @ManyToOne
     @JoinColumn(name = "schedule_id")
     private ScheduleEntity schedule;
+
+    @ManyToMany
+    @JoinTable(
+            name = "auditoryLessonType",
+            joinColumns = @JoinColumn(name = "auditoryId"),
+            inverseJoinColumns = @JoinColumn(name = "lessonTypeId")
+    )
+    private List<LessonType> lessonTypes;
+
+    public void setLessonTypes(List<LessonType> lessonTypes) {
+        this.lessonTypes = lessonTypes;
+    }
+
+    public List<LessonType> getLessonTypes() {
+        return lessonTypes = new ArrayList<>();
+    }
 
     public String getDate() {
         return date;

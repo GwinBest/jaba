@@ -1,30 +1,34 @@
 package org.javalabs.lab1.service;
 
 import org.javalabs.lab1.dao.AuditoryRepository;
+import org.javalabs.lab1.dao.LessonTypeRepository;
 import org.javalabs.lab1.dao.ScheduleRepository;
 import org.javalabs.lab1.entity.AuditoryEntity;
+import org.javalabs.lab1.entity.LessonType;
 import org.javalabs.lab1.model.apiresponse.ApiResponse;
 import org.javalabs.lab1.model.scheduledto.Schedule;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.stereotype.Service;
 import org.javalabs.lab1.entity.ScheduleEntity;
-
 import java.util.List;
 import java.util.Optional;
-
 
 @Service
 public class ScheduleService {
     private final ScheduleRepository teacherScheduleRepository;
     private final AuditoryRepository auditoryRepository;
+    private final LessonTypeRepository lessonTypeRepository;
+
 
     public ScheduleRepository getTeacherScheduleRepository() {
         return teacherScheduleRepository;
     }
 
-    public ScheduleService(ScheduleRepository teacherScheduleRepository, AuditoryRepository auditoryRepository) {
+    public ScheduleService(ScheduleRepository teacherScheduleRepository, AuditoryRepository auditoryRepository,
+                           LessonTypeRepository lessonTypeRepository) {
         this.teacherScheduleRepository = teacherScheduleRepository;
         this.auditoryRepository = auditoryRepository;
+        this.lessonTypeRepository = lessonTypeRepository;
     }
 
     public ApiResponse searchPage(String query) {
@@ -60,6 +64,17 @@ public class ScheduleService {
                             auditoryEntity.setStartTime(schedule.getStartLessonTime());
                             auditoryEntity.setDate(schedule.getStartLessonDate());
                             auditoryEntity.setSchedule(scheduleEntity);
+
+                            LessonType existingLessonType = lessonTypeRepository.findByType(
+                                    schedule.getLessonTypeAbbrev());
+                            if (existingLessonType == null) {
+                                LessonType lessonType = new LessonType();
+                                lessonType.setType(schedule.getLessonTypeAbbrev());
+                                lessonTypeRepository.save(lessonType);
+                                auditoryEntity.getLessonTypes().add(lessonType);
+                            } else {
+                                auditoryEntity.getLessonTypes().add(existingLessonType);
+                            }
 
                             auditoryRepository.save(auditoryEntity);
                         }
