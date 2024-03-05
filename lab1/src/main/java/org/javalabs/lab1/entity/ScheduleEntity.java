@@ -20,7 +20,7 @@ public class ScheduleEntity {
     @Column(name = "course")
     private int course;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "schedule")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "schedule")
     private List<AuditoryEntity> auditoryEntities;
 
     public void setAuditoryEntities(List<AuditoryEntity> auditoryEntities) {

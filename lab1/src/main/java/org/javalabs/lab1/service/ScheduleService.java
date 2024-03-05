@@ -40,7 +40,6 @@ public class ScheduleService {
 
         if (response != null)
         {
-
             ScheduleEntity scheduleEntity = teacherScheduleRepository.findByGroupName(
                                                 response.getStudentGroupDto().getName());
 

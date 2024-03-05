@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 
+import java.util.Optional;
+
 @RestController
 public class ScheduleController {
 	private final ScheduleService service;
@@ -41,14 +43,24 @@ public class ScheduleController {
 
 	@PutMapping("/schedule/{id}")
 	public ResponseEntity<String> updateSchedule(@PathVariable("id") int id, @RequestBody ScheduleEntity scheduleEntity) {
-		if (scheduleEntity == null ||
-				service.getTeacherScheduleRepository().findByGroupName(scheduleEntity.getGroupName()) != null) {
+		if (scheduleEntity == null) {
 			return ResponseEntity.badRequest().body("error");
 		}
 
 		try {
-			service.updateSchedule(id, scheduleEntity);
+			Optional<ScheduleEntity> existingEntityOptional = service.getTeacherScheduleRepository().findById(id);
+			if (existingEntityOptional.isEmpty()) {
+				return ResponseEntity.notFound().build();
+			}
 
+			ScheduleEntity existingEntity = existingEntityOptional.get();
+
+			if (!existingEntity.getGroupName().equals(scheduleEntity.getGroupName()) &&
+					service.getTeacherScheduleRepository().findByGroupName(scheduleEntity.getGroupName()) != null) {
+				return ResponseEntity.badRequest().body("error: Group name already exists");
+			}
+
+			service.updateSchedule(id, scheduleEntity);
 			return ResponseEntity.ok(STATUS_CODE_OK);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error " + e.getMessage());
