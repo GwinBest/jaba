@@ -3,31 +3,30 @@ package org.javalabs.lab1.service;
 import org.javalabs.lab1.dao.AuditoryRepository;
 import org.javalabs.lab1.dao.LessonTypeRepository;
 import org.javalabs.lab1.dao.ScheduleRepository;
-import org.javalabs.lab1.entity.AuditoryEntity;
+import org.javalabs.lab1.entity.Auditory;
 import org.javalabs.lab1.entity.LessonType;
 import org.javalabs.lab1.model.apiresponse.ApiResponse;
-import org.javalabs.lab1.model.scheduledto.Schedule;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.stereotype.Service;
-import org.javalabs.lab1.entity.ScheduleEntity;
+import org.javalabs.lab1.entity.Schedule;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ScheduleService {
-    private final ScheduleRepository teacherScheduleRepository;
-    private final AuditoryRepository auditoryRepository;
-    private final LessonTypeRepository lessonTypeRepository;
+    private final ScheduleRepository SCHEDULE_REPOSITORY;
+    private final AuditoryRepository AUDITORY_REPOSITORY;
+    private final LessonTypeRepository LESSON_TYPE_REPOSITORY;
 
     public ScheduleRepository getTeacherScheduleRepository() {
-        return teacherScheduleRepository;
+        return SCHEDULE_REPOSITORY;
     }
 
     public ScheduleService(ScheduleRepository teacherScheduleRepository, AuditoryRepository auditoryRepository,
                            LessonTypeRepository lessonTypeRepository) {
-        this.teacherScheduleRepository = teacherScheduleRepository;
-        this.auditoryRepository = auditoryRepository;
-        this.lessonTypeRepository = lessonTypeRepository;
+        this.SCHEDULE_REPOSITORY = teacherScheduleRepository;
+        this.AUDITORY_REPOSITORY = auditoryRepository;
+        this.LESSON_TYPE_REPOSITORY = lessonTypeRepository;
     }
 
     public ApiResponse searchPage(String query) {
@@ -40,17 +39,16 @@ public class ScheduleService {
 
         if (response != null)
         {
-            ScheduleEntity scheduleEntity = teacherScheduleRepository.findByGroupName(
-                                                response.getStudentGroupDto().getName());
+            Schedule scheduleEntity = SCHEDULE_REPOSITORY.findByGroupName(response.getStudentGroupDto().getName());
 
             if(scheduleEntity == null) {
-                scheduleEntity = new ScheduleEntity();
+                scheduleEntity = new Schedule();
                 scheduleEntity.setCourse(response.getStudentGroupDto().getCourse());
                 scheduleEntity.setGroupName(response.getStudentGroupDto().getName());
                 scheduleEntity.setFacultyId(response.getStudentGroupDto().getFacultyId());
                 scheduleEntity.setFacultyAbbrev(response.getStudentGroupDto().getFacultyAbbrev());
 
-                teacherScheduleRepository.save(scheduleEntity);
+                SCHEDULE_REPOSITORY.save(scheduleEntity);
 
                 fillTables(response, scheduleEntity);
             }
@@ -60,62 +58,62 @@ public class ScheduleService {
         return response;
     }
 
-    public  void fillTables(ApiResponse response, ScheduleEntity scheduleEntity) {
-        for (List<Schedule> scheduleList : response.getSchedules().values()) {
-            for (Schedule schedule : scheduleList) {
+    public void fillTables(ApiResponse response, Schedule scheduleEntity) {
+        for (List<org.javalabs.lab1.model.scheduledto.Schedule> scheduleList : response.getSchedules().values()) {
+            for (org.javalabs.lab1.model.scheduledto.Schedule schedule : scheduleList) {
                 for (String auditory : schedule.getAuditories()) {
-                    AuditoryEntity auditoryEntity = new AuditoryEntity();
+                    Auditory auditoryEntity = new Auditory();
                     auditoryEntity.setAuditoryNumber(auditory);
                     auditoryEntity.setGroupName(response.getStudentGroupDto().getName());
                     auditoryEntity.setStartTime(schedule.getStartLessonTime());
                     auditoryEntity.setDate(schedule.getStartLessonDate());
                     auditoryEntity.setSchedule(scheduleEntity);
 
-                    LessonType existingLessonType = lessonTypeRepository.findByType(
+                    LessonType existingLessonType = LESSON_TYPE_REPOSITORY.findByType(
                             schedule.getLessonTypeAbbrev());
                     if (existingLessonType == null) {
                         LessonType lessonType = new LessonType();
                         lessonType.setType(schedule.getLessonTypeAbbrev());
-                        lessonTypeRepository.save(lessonType);
+                        LESSON_TYPE_REPOSITORY.save(lessonType);
                         auditoryEntity.getLessonTypes().add(lessonType);
                     } else {
                         auditoryEntity.getLessonTypes().add(existingLessonType);
                     }
 
-                    auditoryRepository.save(auditoryEntity);
+                    AUDITORY_REPOSITORY.save(auditoryEntity);
                 }
             }
         }
     }
-    public ScheduleEntity createSchedule(ScheduleEntity scheduleEntity) {
+    public Schedule createSchedule(Schedule scheduleEntity) {
         if (scheduleEntity == null) {
             throw new IllegalArgumentException("error");
         }
 
-        return teacherScheduleRepository.save(scheduleEntity);
+        return SCHEDULE_REPOSITORY.save(scheduleEntity);
     }
 
-    public ScheduleEntity updateSchedule(int id, ScheduleEntity scheduleEntity) {
+    public Schedule updateSchedule(int id, Schedule scheduleEntity) {
         if (scheduleEntity == null) {
             throw new IllegalArgumentException("error");
         }
 
-        Optional<ScheduleEntity> existingEntityOptional = teacherScheduleRepository.findById(id);
+        Optional<Schedule> existingEntityOptional = SCHEDULE_REPOSITORY.findById(id);
         if (existingEntityOptional.isEmpty()) {
             throw new IllegalArgumentException("id=" + id + " not found");
         }
 
-        ScheduleEntity existingEntity = existingEntityOptional.get();
+        Schedule existingEntity = existingEntityOptional.get();
 
         existingEntity.setCourse(scheduleEntity.getCourse());
         existingEntity.setGroupName(scheduleEntity.getGroupName());
         existingEntity.setFacultyId(scheduleEntity.getFacultyId());
         existingEntity.setFacultyAbbrev(scheduleEntity.getFacultyAbbrev());
-        return teacherScheduleRepository.save(existingEntity);
+        return SCHEDULE_REPOSITORY.save(existingEntity);
     }
 
     public void deleteSchedule(int id) {
-        teacherScheduleRepository.deleteById(id);
+        SCHEDULE_REPOSITORY.deleteById(id);
     }
 
 }

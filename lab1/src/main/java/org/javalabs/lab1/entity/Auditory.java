@@ -1,13 +1,12 @@
 package org.javalabs.lab1.entity;
 
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "auditory")
-public class AuditoryEntity {
+public class Auditory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +26,7 @@ public class AuditoryEntity {
 
     @ManyToOne
     @JoinColumn(name = "schedule_id")
-    private ScheduleEntity schedule;
+    private Schedule schedule;
 
     @ManyToMany
     @JoinTable(
@@ -36,6 +35,9 @@ public class AuditoryEntity {
             inverseJoinColumns = @JoinColumn(name = "lessonTypeId")
     )
     private List<LessonType> lessonTypes = new ArrayList<>();
+
+    public Auditory() {
+    }
 
     public void setLessonTypes(List<LessonType> lessonTypes) {
         this.lessonTypes = lessonTypes;
@@ -53,11 +55,11 @@ public class AuditoryEntity {
         this.date = date;
     }
 
-    public void setSchedule(ScheduleEntity schedule) {
+    public void setSchedule(Schedule schedule) {
         this.schedule = schedule;
     }
 
-    public ScheduleEntity getSchedule() {
+    public Schedule getSchedule() {
         return schedule;
     }
 

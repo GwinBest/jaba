@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "schedule")
-public class ScheduleEntity {
+public class Schedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,13 +21,13 @@ public class ScheduleEntity {
     private int course;
 
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "schedule")
-    private List<AuditoryEntity> auditoryEntities;
+    private List<Auditory> auditoryEntities;
 
-    public void setAuditoryEntities(List<AuditoryEntity> auditoryEntities) {
+    public void setAuditoryEntities(List<Auditory> auditoryEntities) {
         this.auditoryEntities = auditoryEntities;
     }
 
-    public List<AuditoryEntity> getAuditoryEntities() {
+    public List<Auditory> getAuditoryEntities() {
         return auditoryEntities;
     }
 
