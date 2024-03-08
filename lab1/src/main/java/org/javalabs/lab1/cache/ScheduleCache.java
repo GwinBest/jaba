@@ -7,14 +7,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ScheduleCache {
-    private final Map<String, ApiResponse> CACHE = new ConcurrentHashMap<>();
+    private final Map<String, ApiResponse> cache = new ConcurrentHashMap<>();
 
     public void put(String key, ApiResponse value) {
-        CACHE.put(key, value);
+        cache.put(key, value);
     }
 
     public ApiResponse get(String key) {
-        return CACHE.get(key);
+        return cache.get(key);
     }
 }
 

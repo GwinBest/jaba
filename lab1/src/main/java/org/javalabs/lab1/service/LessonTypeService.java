@@ -8,26 +8,26 @@ import java.util.List;
 
 @Service
 public class LessonTypeService {
-    private final LessonTypeRepository LESSON_TYPE_REPOSITORY;
+    private final LessonTypeRepository lessonTypeRepository;
 
     public LessonTypeService(LessonTypeRepository lessonTypeRepository) {
-        this.LESSON_TYPE_REPOSITORY = lessonTypeRepository;
+        this.lessonTypeRepository = lessonTypeRepository;
     }
 
     public LessonType createLessonType(LessonType lessonType) {
-        return LESSON_TYPE_REPOSITORY.save(lessonType);
+        return lessonTypeRepository.save(lessonType);
     }
 
     public List<LessonType> getAllLessonTypes() {
-        return LESSON_TYPE_REPOSITORY.findAll();
+        return lessonTypeRepository.findAll();
     }
 
     public LessonType getLessonTypeById(int id) {
-        return LESSON_TYPE_REPOSITORY.findById(id)
+        return lessonTypeRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Lesson Type not found"));
     }
 
     public void deleteLessonType(int id) {
-        LESSON_TYPE_REPOSITORY.deleteById(id);
+        lessonTypeRepository.deleteById(id);
     }
 }

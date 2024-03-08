@@ -10,33 +10,33 @@ import java.util.List;
 
 @RestController
 public class LessonTypeController {
-    private final LessonTypeService LESSON_TYPE_SERVICE;
+    private final LessonTypeService lessonTypeService;
 
     public LessonTypeController(LessonTypeService lessonTypeService) {
-        this.LESSON_TYPE_SERVICE = lessonTypeService;
+        this.lessonTypeService = lessonTypeService;
     }
 
     @PostMapping("/lesson-types")
     public ResponseEntity<LessonType> createLessonType(@RequestBody LessonType lessonType) {
-        LessonType createdLessonType = LESSON_TYPE_SERVICE.createLessonType(lessonType);
+        LessonType createdLessonType = lessonTypeService.createLessonType(lessonType);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdLessonType);
     }
 
     @GetMapping("/lesson-types")
     public ResponseEntity<List<LessonType>> getAllLessonTypes() {
-        List<LessonType> lessonTypes = LESSON_TYPE_SERVICE.getAllLessonTypes();
+        List<LessonType> lessonTypes = lessonTypeService.getAllLessonTypes();
         return ResponseEntity.ok(lessonTypes);
     }
 
     @GetMapping("/lesson-types/{id}")
     public ResponseEntity<LessonType> getLessonTypeById(@PathVariable int id) {
-        LessonType lessonType = LESSON_TYPE_SERVICE.getLessonTypeById(id);
+        LessonType lessonType = lessonTypeService.getLessonTypeById(id);
         return ResponseEntity.ok(lessonType);
     }
 
     @DeleteMapping("/lesson-types/{id}")
     public ResponseEntity<Void> deleteLessonType(@PathVariable int id) {
-        LESSON_TYPE_SERVICE.deleteLessonType(id);
+        lessonTypeService.deleteLessonType(id);
         return ResponseEntity.noContent().build();
     }
 }

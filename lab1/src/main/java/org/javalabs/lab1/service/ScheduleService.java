@@ -14,19 +14,19 @@ import java.util.Optional;
 
 @Service
 public class ScheduleService {
-    private final ScheduleRepository SCHEDULE_REPOSITORY;
-    private final AuditoryRepository AUDITORY_REPOSITORY;
-    private final LessonTypeRepository LESSON_TYPE_REPOSITORY;
+    private final ScheduleRepository scheduleRepository;
+    private final AuditoryRepository auditoryRepository;
+    private final LessonTypeRepository lessonTypeRepository;
 
     public ScheduleRepository getTeacherScheduleRepository() {
-        return SCHEDULE_REPOSITORY;
+        return scheduleRepository;
     }
 
     public ScheduleService(ScheduleRepository teacherScheduleRepository, AuditoryRepository auditoryRepository,
                            LessonTypeRepository lessonTypeRepository) {
-        this.SCHEDULE_REPOSITORY = teacherScheduleRepository;
-        this.AUDITORY_REPOSITORY = auditoryRepository;
-        this.LESSON_TYPE_REPOSITORY = lessonTypeRepository;
+        this.scheduleRepository = teacherScheduleRepository;
+        this.auditoryRepository = auditoryRepository;
+        this.lessonTypeRepository = lessonTypeRepository;
     }
 
     public ApiResponse searchPage(String query) {
@@ -39,7 +39,7 @@ public class ScheduleService {
 
         if (response != null)
         {
-            Schedule scheduleEntity = SCHEDULE_REPOSITORY.findByGroupName(response.getStudentGroupDto().getName());
+            Schedule scheduleEntity = scheduleRepository.findByGroupName(response.getStudentGroupDto().getName());
 
             if(scheduleEntity == null) {
                 scheduleEntity = new Schedule();
@@ -48,7 +48,7 @@ public class ScheduleService {
                 scheduleEntity.setFacultyId(response.getStudentGroupDto().getFacultyId());
                 scheduleEntity.setFacultyAbbrev(response.getStudentGroupDto().getFacultyAbbrev());
 
-                SCHEDULE_REPOSITORY.save(scheduleEntity);
+                scheduleRepository.save(scheduleEntity);
 
                 fillTables(response, scheduleEntity);
             }
@@ -69,18 +69,18 @@ public class ScheduleService {
                     auditoryEntity.setDate(schedule.getStartLessonDate());
                     auditoryEntity.setSchedule(scheduleEntity);
 
-                    LessonType existingLessonType = LESSON_TYPE_REPOSITORY.findByType(
+                    LessonType existingLessonType = lessonTypeRepository.findByType(
                             schedule.getLessonTypeAbbrev());
                     if (existingLessonType == null) {
                         LessonType lessonType = new LessonType();
                         lessonType.setType(schedule.getLessonTypeAbbrev());
-                        LESSON_TYPE_REPOSITORY.save(lessonType);
+                        lessonTypeRepository.save(lessonType);
                         auditoryEntity.getLessonTypes().add(lessonType);
                     } else {
                         auditoryEntity.getLessonTypes().add(existingLessonType);
                     }
 
-                    AUDITORY_REPOSITORY.save(auditoryEntity);
+                    auditoryRepository.save(auditoryEntity);
                 }
             }
         }
@@ -90,7 +90,7 @@ public class ScheduleService {
             throw new IllegalArgumentException("error");
         }
 
-        return SCHEDULE_REPOSITORY.save(scheduleEntity);
+        return scheduleRepository.save(scheduleEntity);
     }
 
     public Schedule updateSchedule(int id, Schedule scheduleEntity) {
@@ -98,7 +98,7 @@ public class ScheduleService {
             throw new IllegalArgumentException("error");
         }
 
-        Optional<Schedule> existingEntityOptional = SCHEDULE_REPOSITORY.findById(id);
+        Optional<Schedule> existingEntityOptional = scheduleRepository.findById(id);
         if (existingEntityOptional.isEmpty()) {
             throw new IllegalArgumentException("id=" + id + " not found");
         }
@@ -109,11 +109,11 @@ public class ScheduleService {
         existingEntity.setGroupName(scheduleEntity.getGroupName());
         existingEntity.setFacultyId(scheduleEntity.getFacultyId());
         existingEntity.setFacultyAbbrev(scheduleEntity.getFacultyAbbrev());
-        return SCHEDULE_REPOSITORY.save(existingEntity);
+        return scheduleRepository.save(existingEntity);
     }
 
     public void deleteSchedule(int id) {
-        SCHEDULE_REPOSITORY.deleteById(id);
+        scheduleRepository.deleteById(id);
     }
 
 }

@@ -13,12 +13,12 @@ import java.util.Optional;
 
 @RestController
 public class ScheduleController {
-	private final ScheduleService SCHEDULE_SERVICE;
+	private final ScheduleService scheduleService;
 	private static final String STATUS_CODE_OK = "success";
 	private final ScheduleCache scheduleCache;
 
 	public ScheduleController(ScheduleService service, ScheduleCache scheduleCache) {
-		this.SCHEDULE_SERVICE = service;
+		this.scheduleService = service;
 		this.scheduleCache = scheduleCache;
 	}
 
@@ -28,7 +28,7 @@ public class ScheduleController {
 		if (cachedResponse != null) {
 			return cachedResponse;
 		} else {
-			ApiResponse response = SCHEDULE_SERVICE.searchPage(query);
+			ApiResponse response = scheduleService.searchPage(query);
 			scheduleCache.put(query, response);
 			return response;
 		}
@@ -37,12 +37,12 @@ public class ScheduleController {
 	@PostMapping("/schedule")
 	public ResponseEntity<String> createSchedule(@RequestBody Schedule scheduleEntity) {
 		if (scheduleEntity == null ||
-				SCHEDULE_SERVICE.getTeacherScheduleRepository().findByGroupName(scheduleEntity.getGroupName()) != null) {
+				scheduleService.getTeacherScheduleRepository().findByGroupName(scheduleEntity.getGroupName()) != null) {
 			return ResponseEntity.badRequest().body("error");
 		}
 
 		try {
-			SCHEDULE_SERVICE.createSchedule(scheduleEntity);
+			scheduleService.createSchedule(scheduleEntity);
 
 			return ResponseEntity.ok(STATUS_CODE_OK);
 		} catch (Exception e) {
@@ -57,7 +57,7 @@ public class ScheduleController {
 		}
 
 		try {
-			Optional<Schedule> existingEntityOptional = SCHEDULE_SERVICE.getTeacherScheduleRepository().findById(id);
+			Optional<Schedule> existingEntityOptional = scheduleService.getTeacherScheduleRepository().findById(id);
 			if (existingEntityOptional.isEmpty()) {
 				return ResponseEntity.notFound().build();
 			}
@@ -65,11 +65,11 @@ public class ScheduleController {
 			Schedule existingEntity = existingEntityOptional.get();
 
 			if (!existingEntity.getGroupName().equals(scheduleEntity.getGroupName()) &&
-					SCHEDULE_SERVICE.getTeacherScheduleRepository().findByGroupName(scheduleEntity.getGroupName()) != null) {
+					scheduleService.getTeacherScheduleRepository().findByGroupName(scheduleEntity.getGroupName()) != null) {
 				return ResponseEntity.badRequest().body("error: Group name already exists");
 			}
 
-			SCHEDULE_SERVICE.updateSchedule(id, scheduleEntity);
+			scheduleService.updateSchedule(id, scheduleEntity);
 			return ResponseEntity.ok(STATUS_CODE_OK);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error " + e.getMessage());
@@ -79,7 +79,7 @@ public class ScheduleController {
 	@DeleteMapping("/schedule/{id}")
 	public ResponseEntity<String> deleteSchedule(@PathVariable("id") int id) {
 		try {
-			SCHEDULE_SERVICE.deleteSchedule(id);
+			scheduleService.deleteSchedule(id);
 
 			return ResponseEntity.ok(STATUS_CODE_OK);
 		} catch (Exception e) {

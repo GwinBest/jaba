@@ -36,9 +36,6 @@ public class Auditory {
     )
     private List<LessonType> lessonTypes = new ArrayList<>();
 
-    public Auditory() {
-    }
-
     public void setLessonTypes(List<LessonType> lessonTypes) {
         this.lessonTypes = lessonTypes;
     }
