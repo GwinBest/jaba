@@ -41,7 +41,7 @@ public class ScheduleService {
         {
             Schedule scheduleEntity = scheduleRepository.findByGroupName(response.getStudentGroupDto().getName());
 
-            if (scheduleEntity == null) {
+            if(scheduleEntity == null) {
                 scheduleEntity = new Schedule();
                 scheduleEntity.setCourse(response.getStudentGroupDto().getCourse());
                 scheduleEntity.setGroupName(response.getStudentGroupDto().getName());

@@ -31,7 +31,7 @@ public class AuditoryService {
             throw new IllegalArgumentException(STATUS_CODE_ERROR);
         }
         Schedule schedule = scheduleRepository.findByGroupName(group);
-        if (schedule != null) {
+        if(schedule != null) {
             auditoryEntity.setSchedule(schedule);
 
             return auditoryRepository.save(auditoryEntity);
