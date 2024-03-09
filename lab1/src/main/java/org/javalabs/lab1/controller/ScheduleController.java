@@ -2,8 +2,11 @@ package org.javalabs.lab1.controller;
 
 import org.javalabs.lab1.cache.ScheduleCache;
 import org.javalabs.lab1.entity.Schedule;
+import org.javalabs.lab1.exceptionhandler.GlobalExceptionHandler;
 import org.javalabs.lab1.model.apiresponse.ApiResponse;
 import org.javalabs.lab1.service.ScheduleService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +19,8 @@ public class ScheduleController {
 	private final ScheduleService scheduleService;
 	private static final String STATUS_CODE_OK = "success";
 	private final ScheduleCache scheduleCache;
+	private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
 
 	public ScheduleController(ScheduleService service, ScheduleCache scheduleCache) {
 		this.scheduleService = service;
@@ -24,6 +29,8 @@ public class ScheduleController {
 
 	@GetMapping("/schedule")
 	public ApiResponse search(@RequestParam(value = "studentGroup") String query) {
+		LOGGER.info("get endpoint /schedule was called");
+
 		ApiResponse cachedResponse = scheduleCache.get(query);
 		if (cachedResponse != null) {
 			return cachedResponse;
@@ -36,6 +43,8 @@ public class ScheduleController {
 
 	@PostMapping("/schedule")
 	public ResponseEntity<String> createSchedule(@RequestBody Schedule scheduleEntity) {
+		LOGGER.info("post endpoint /schedule was called");
+
 		if (scheduleEntity == null ||
 				scheduleService.getTeacherScheduleRepository().findByGroupName(scheduleEntity.getGroupName()) != null) {
 			return ResponseEntity.badRequest().body("error");
@@ -52,6 +61,8 @@ public class ScheduleController {
 
 	@PutMapping("/schedule/{id}")
 	public ResponseEntity<String> updateSchedule(@PathVariable("id") int id, @RequestBody Schedule scheduleEntity) {
+		LOGGER.info("put endpoint /schedule/{id} was called");
+
 		if (scheduleEntity == null) {
 			return ResponseEntity.badRequest().body("error");
 		}
@@ -78,6 +89,8 @@ public class ScheduleController {
 
 	@DeleteMapping("/schedule/{id}")
 	public ResponseEntity<String> deleteSchedule(@PathVariable("id") int id) {
+		LOGGER.info("delete endpoint /schedule/{id} was called");
+
 		try {
 			scheduleService.deleteSchedule(id);
 
