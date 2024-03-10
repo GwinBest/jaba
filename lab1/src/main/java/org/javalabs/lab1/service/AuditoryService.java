@@ -1,5 +1,6 @@
 package org.javalabs.lab1.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.javalabs.lab1.dao.AuditoryRepository;
 import org.javalabs.lab1.dao.ScheduleRepository;
 import org.javalabs.lab1.entity.Auditory;
@@ -92,7 +93,12 @@ public class AuditoryService {
     }
 
     public void deleteAuditory(int id) {
-        auditoryRepository.deleteById(id);
+        Optional<Auditory> auditoryOptional = auditoryRepository.findById(id);
+        if (auditoryOptional.isPresent()) {
+            auditoryRepository.deleteById(id);
+        } else {
+            throw new EntityNotFoundException("Auditory with id " + id + " not found");
+        }
     }
 
 }

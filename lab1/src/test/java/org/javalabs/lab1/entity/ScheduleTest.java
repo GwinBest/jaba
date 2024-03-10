@@ -3,12 +3,27 @@ package org.javalabs.lab1.entity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import java.util.ArrayList;
+import  java.util.List;
 
 @ExtendWith(MockitoExtension.class)
 public class ScheduleTest {
+
+    @Test
+    void testSetAuditoryEntities() {
+        Schedule schedule = new Schedule();
+
+        List<Auditory> auditoryEntities = new ArrayList<>();
+        auditoryEntities.add(new Auditory());
+        auditoryEntities.add(new Auditory());
+        auditoryEntities.add(new Auditory());
+
+        schedule.setAuditoryEntities(auditoryEntities);
+
+        assertEquals(auditoryEntities, schedule.getAuditoryEntities());
+    }
 
     @Test
     public void testGettersAndSetters() {

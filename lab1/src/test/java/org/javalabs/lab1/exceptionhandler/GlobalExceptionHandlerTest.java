@@ -6,12 +6,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.server.ResponseStatusException;
-
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
 
 public class GlobalExceptionHandlerTest {
+
+    @Test
+    void testHandleNoResourceFoundException() {
+        NoResourceFoundException ex = mock(NoResourceFoundException.class);
+        WebRequest request = mock(WebRequest.class);
+
+        GlobalExceptionHandler handler = new GlobalExceptionHandler();
+
+        ResponseEntity<Object> responseEntity = handler.handleNoResourceFoundException(ex, request);
+
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
+        assertEquals("404: Not Found", responseEntity.getBody());
+    }
 
     @Test
     public void testHandleRuntimeException() {

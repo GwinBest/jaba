@@ -13,6 +13,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -62,31 +65,6 @@ class ScheduleControllerTest {
         verify(scheduleCache, times(1)).put(query, mockResponse);
     }
 
-/*    @Test
-    void testCreateSchedule_Success() {
-        Schedule scheduleEntity = new Schedule();
-        when(scheduleService.createSchedule(scheduleEntity)).thenReturn(scheduleEntity);
-        when(scheduleService.getTeacherScheduleRepository()).thenReturn(mock(ScheduleRepository.class)); // Мокируем ScheduleRepository
-
-        ResponseEntity<String> response = scheduleController.createSchedule(scheduleEntity);
-
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        assertEquals("success", response.getBody());
-    }*/
-
-/*    @Test
-    void testUpdateSchedule_Success() {
-        int id = 1;
-        Schedule scheduleEntity = new Schedule();
-        scheduleEntity.setGroupName("Group1");
-        when(scheduleService.updateSchedule(id, scheduleEntity)).thenReturn(scheduleEntity);
-
-        ResponseEntity<String> response = scheduleController.updateSchedule(id, scheduleEntity);
-
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals("success", response.getBody());
-    }*/
-
     @Test
     void testDeleteSchedule_Success() {
         int id = 1;
@@ -97,5 +75,7 @@ class ScheduleControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("success", response.getBody());
     }
+
+
 
 }

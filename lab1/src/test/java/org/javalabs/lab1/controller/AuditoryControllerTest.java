@@ -1,6 +1,8 @@
 package org.javalabs.lab1.controller;
 
 
+import jakarta.persistence.EntityNotFoundException;
+import org.javalabs.lab1.dao.AuditoryRepository;
 import org.javalabs.lab1.entity.Auditory;
 import org.javalabs.lab1.model.auditorydto.AuditoryDto;
 import org.javalabs.lab1.service.AuditoryService;
@@ -83,6 +85,27 @@ public class AuditoryControllerTest {
         ResponseEntity<String> response = auditoryController.createAuditory(auditoryEntity, group);
 
         assertEquals(expectedResponse, response);
+    }
+
+    @Test
+    public void testDeleteAuditory_Success() {
+        AuditoryService auditoryService = mock(AuditoryService.class);
+        AuditoryRepository auditoryRepository = mock(AuditoryRepository.class);
+
+        AuditoryController auditoryController = new AuditoryController(auditoryService);
+        int id = 1;
+
+        doNothing().when(auditoryService).deleteAuditory(id);
+
+        ResponseEntity<String> response = auditoryController.deleteAuditory(id);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        assertEquals("success", response.getBody());
+
+        verify(auditoryService, times(1)).deleteAuditory(id);
+
+        verify(auditoryRepository, never()).deleteById(id);
     }
 
     @Test

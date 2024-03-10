@@ -15,6 +15,50 @@ public class EmployeeDto {
     private String calendarId;
     private List<String> jobPositions;
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setCalendarId(String calendarId) {
+        this.calendarId = calendarId;
+    }
+
+    public void setDegree(String degree) {
+        this.degree = degree;
+    }
+
+    public void setDegreeAbbrev(String degreeAbbrev) {
+        this.degreeAbbrev = degreeAbbrev;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setJobPositions(List<String> jobPositions) {
+        this.jobPositions = jobPositions;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public void setPhotoLink(String photoLink) {
+        this.photoLink = photoLink;
+    }
+
+    public void setUrlId(String urlId) {
+        this.urlId = urlId;
+    }
+
     public int getId() {
         return id;
     }

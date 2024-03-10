@@ -23,6 +23,70 @@ public class Schedule {
     private boolean announcement;
     private boolean split;
 
+    public void setAnnouncement(boolean announcement) {
+        this.announcement = announcement;
+    }
+
+    public void setAuditories(List<String> auditories) {
+        this.auditories = auditories;
+    }
+
+    public void setDateLesson(String dateLesson) {
+        this.dateLesson = dateLesson;
+    }
+
+    public void setEmployees(List<EmployeeDto> employees) {
+        this.employees = employees;
+    }
+
+    public void setEndLessonDate(String endLessonDate) {
+        this.endLessonDate = endLessonDate;
+    }
+
+    public void setEndLessonTime(String endLessonTime) {
+        this.endLessonTime = endLessonTime;
+    }
+
+    public void setLessonTypeAbbrev(String lessonTypeAbbrev) {
+        this.lessonTypeAbbrev = lessonTypeAbbrev;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public void setNumSubgroup(int numSubgroup) {
+        this.numSubgroup = numSubgroup;
+    }
+
+    public void setSplit(boolean split) {
+        this.split = split;
+    }
+
+    public void setStartLessonDate(String startLessonDate) {
+        this.startLessonDate = startLessonDate;
+    }
+
+    public void setStartLessonTime(String startLessonTime) {
+        this.startLessonTime = startLessonTime;
+    }
+
+    public void setStudentGroups(List<StudentGroupDto> studentGroups) {
+        this.studentGroups = studentGroups;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public void setSubjectFullName(String subjectFullName) {
+        this.subjectFullName = subjectFullName;
+    }
+
+    public void setWeekNumber(List<Integer> weekNumber) {
+        this.weekNumber = weekNumber;
+    }
+
     public List<String> getAuditories() {
         return auditories;
     }
