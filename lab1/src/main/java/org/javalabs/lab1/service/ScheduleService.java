@@ -58,6 +58,7 @@ public class ScheduleService {
         return response;
     }
 
+
     public void fillTables(ApiResponse response, Schedule scheduleEntity) {
         for (List<org.javalabs.lab1.model.scheduledto.Schedule> scheduleList : response.getSchedules().values()) {
             for (org.javalabs.lab1.model.scheduledto.Schedule schedule : scheduleList) {

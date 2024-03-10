@@ -15,6 +15,38 @@ public class ApiResponse {
     private String startExamsDate;
     private String endExamsDate;
 
+    public void setSchedules(Map<String, List<Schedule>> schedules) {
+        this.schedules = schedules;
+    }
+
+    public void setEmployeeDto(Object employeeDto) {
+        this.employeeDto = employeeDto;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setEndExamsDate(String endExamsDate) {
+        this.endExamsDate = endExamsDate;
+    }
+
+    public void setExams(List<Schedule> exams) {
+        this.exams = exams;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setStartExamsDate(String startExamsDate) {
+        this.startExamsDate = startExamsDate;
+    }
+
+    public void setStudentGroupDto(StudentGroupDto studentGroupDto) {
+        this.studentGroupDto = studentGroupDto;
+    }
+
     public Object getEmployeeDto() {
         return employeeDto;
     }
