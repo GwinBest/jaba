@@ -8,10 +8,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @ExtendWith(MockitoExtension.class)
-public class LessonTypeTest {
+ class LessonTypeTest {
 
     @Test
-    public void testGettersAndSetters() {
+     void testGettersAndSetters() {
         LessonType lessonType = new LessonType();
         lessonType.setId(1);
         lessonType.setType("Lecture");
@@ -21,7 +21,7 @@ public class LessonTypeTest {
     }
 
     @Test
-    public void testEmptyConstructor() {
+     void testEmptyConstructor() {
         LessonType lessonType = new LessonType();
         assertEquals(0, lessonType.getId());
         assertNull(lessonType.getType());

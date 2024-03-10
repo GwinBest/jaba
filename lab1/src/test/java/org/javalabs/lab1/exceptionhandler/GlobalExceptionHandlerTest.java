@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
-public class GlobalExceptionHandlerTest {
+ class GlobalExceptionHandlerTest {
 
     @Test
     void testHandleNoResourceFoundException() {
@@ -27,7 +27,7 @@ public class GlobalExceptionHandlerTest {
     }
 
     @Test
-    public void testHandleRuntimeException() {
+     void testHandleRuntimeException() {
         GlobalExceptionHandler handler = new GlobalExceptionHandler();
         RuntimeException ex = new RuntimeException("Internal Server Error");
 
@@ -38,7 +38,7 @@ public class GlobalExceptionHandlerTest {
     }
 
     @Test
-    public void testHandleHttpClientErrorException() {
+     void testHandleHttpClientErrorException() {
         GlobalExceptionHandler handler = new GlobalExceptionHandler();
         HttpClientErrorException ex = new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Bad Request");
 
@@ -49,7 +49,7 @@ public class GlobalExceptionHandlerTest {
     }
 
     @Test
-    public void testHandleMethodNotSupportedException() {
+     void testHandleMethodNotSupportedException() {
         GlobalExceptionHandler handler = new GlobalExceptionHandler();
         HttpRequestMethodNotSupportedException ex = new HttpRequestMethodNotSupportedException("Method Not Allowed");
 

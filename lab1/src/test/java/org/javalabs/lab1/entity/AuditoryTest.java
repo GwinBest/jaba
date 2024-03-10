@@ -10,10 +10,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @ExtendWith(MockitoExtension.class)
-public class AuditoryTest {
+ class AuditoryTest {
 
     @Test
-    public void testGettersAndSetters() {
+     void testGettersAndSetters() {
         Auditory auditory = new Auditory();
         auditory.setId(1);
         auditory.setAuditoryNumber("A101");
@@ -29,7 +29,7 @@ public class AuditoryTest {
     }
 
     @Test
-    public void testEmptyConstructor() {
+     void testEmptyConstructor() {
         Auditory auditory = new Auditory();
         assertEquals(0, auditory.getId());
         assertNull(auditory.getAuditoryNumber());
@@ -39,7 +39,7 @@ public class AuditoryTest {
     }
 
     @Test
-    public void testLessonTypes() {
+     void testLessonTypes() {
         Auditory auditory = new Auditory();
         LessonType lessonType1 = new LessonType();
         LessonType lessonType2 = new LessonType();
@@ -55,7 +55,7 @@ public class AuditoryTest {
     }
 
     @Test
-    public void testSchedule() {
+     void testSchedule() {
         Auditory auditory = new Auditory();
         Schedule schedule = new Schedule();
         auditory.setSchedule(schedule);

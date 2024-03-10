@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import  java.util.List;
 
 @ExtendWith(MockitoExtension.class)
-public class ScheduleTest {
+ class ScheduleTest {
 
     @Test
     void testSetAuditoryEntities() {
@@ -26,7 +26,7 @@ public class ScheduleTest {
     }
 
     @Test
-    public void testGettersAndSetters() {
+     void testGettersAndSetters() {
         Schedule schedule = new Schedule();
         schedule.setId(1);
         schedule.setGroupName("Group1");
@@ -42,7 +42,7 @@ public class ScheduleTest {
     }
 
     @Test
-    public void testEmptyConstructor() {
+     void testEmptyConstructor() {
         Schedule schedule = new Schedule();
         assertEquals(0, schedule.getId());
         assertNull(schedule.getGroupName());

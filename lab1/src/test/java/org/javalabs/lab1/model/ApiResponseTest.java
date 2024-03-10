@@ -10,10 +10,10 @@ import java.util.List;
 import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ApiResponseTest {
+ class ApiResponseTest {
 
     @Test
-    public void testSetterAndGetter() {
+     void testSetterAndGetter() {
         ApiResponse apiResponse = new ApiResponse();
         Object employeeDto = new Object();
         StudentGroupDto studentGroupDto = new StudentGroupDto();

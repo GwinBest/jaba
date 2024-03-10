@@ -22,7 +22,7 @@ import java.util.Collections;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
-public class ScheduleServiceTest {
+ class ScheduleServiceTest {
 
     @Mock
     private ScheduleRepository scheduleRepository;
@@ -40,7 +40,7 @@ public class ScheduleServiceTest {
     private ScheduleService scheduleService;
 
     @Test
-    public void testFillTables() {
+     void testFillTables() {
         ApiResponse response = new ApiResponse();
         Schedule scheduleEntity = new Schedule();
 
@@ -68,7 +68,7 @@ public class ScheduleServiceTest {
 
 
     @Test
-    public void testCreateSchedule() {
+     void testCreateSchedule() {
         Schedule scheduleEntity = new Schedule();
 
         when(scheduleRepository.save(any())).thenReturn(scheduleEntity);
@@ -79,7 +79,7 @@ public class ScheduleServiceTest {
     }
 
     @Test
-    public void testUpdateSchedule() {
+     void testUpdateSchedule() {
         int id = 1;
         Schedule scheduleEntity = new Schedule();
 
@@ -92,7 +92,7 @@ public class ScheduleServiceTest {
     }
 
     @Test
-    public void testDeleteSchedule() {
+     void testDeleteSchedule() {
         int id = 1;
 
         scheduleService.deleteSchedule(id);

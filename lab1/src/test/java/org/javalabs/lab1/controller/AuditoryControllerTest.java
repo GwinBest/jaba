@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class AuditoryControllerTest {
+ class AuditoryControllerTest {
 
     @Mock
     private AuditoryService auditoryService;
@@ -30,7 +30,7 @@ public class AuditoryControllerTest {
     private AuditoryController auditoryController;
 
     @Test
-    public void testGetAuditory() {
+     void testGetAuditory() {
         int id = 1;
         Auditory expectedAuditory = new Auditory();
         when(auditoryService.getAuditoryById(id)).thenReturn(expectedAuditory);
@@ -42,7 +42,7 @@ public class AuditoryControllerTest {
     }
 
     @Test
-    public void testGetAuditoryById_NotFound() {
+     void testGetAuditoryById_NotFound() {
         int id = 1;
         when(auditoryService.getAuditoryById(id)).thenReturn(null);
 
@@ -53,7 +53,7 @@ public class AuditoryControllerTest {
     }
 
     @Test
-    public void testGetAuditoriesByDateAndScheduleId() {
+     void testGetAuditoriesByDateAndScheduleId() {
         String date = "2024-03-10";
         String groupName = "Group1";
         List<AuditoryDto> expectedAuditories = new ArrayList<>();
@@ -65,7 +65,7 @@ public class AuditoryControllerTest {
     }
 
     @Test
-    public void testCreateAuditory() {
+     void testCreateAuditory() {
         Auditory auditoryEntity = new Auditory();
         String group = "Group1";
         when(auditoryService.createAuditory(auditoryEntity, group)).thenReturn(auditoryEntity);
@@ -77,7 +77,7 @@ public class AuditoryControllerTest {
     }
 
     @Test
-    public void testCreateAuditory_Error() {
+     void testCreateAuditory_Error() {
         Auditory auditoryEntity = null;
         String group = "Group1";
         ResponseEntity<String> expectedResponse = ResponseEntity.badRequest().body("error");
@@ -88,7 +88,7 @@ public class AuditoryControllerTest {
     }
 
     @Test
-    public void testDeleteAuditory_Success() {
+     void testDeleteAuditory_Success() {
         AuditoryService auditoryService = mock(AuditoryService.class);
         AuditoryRepository auditoryRepository = mock(AuditoryRepository.class);
 
@@ -109,7 +109,7 @@ public class AuditoryControllerTest {
     }
 
     @Test
-    public void testCreateAuditoriesBulk() throws Exception {
+     void testCreateAuditoriesBulk() throws Exception {
         List<Auditory> auditories = new ArrayList<>();
         String group = "Group1";
         doThrow(new Exception("Error message")).when(auditoryService).createAuditoriesBulk(auditories, group);
@@ -121,7 +121,7 @@ public class AuditoryControllerTest {
     }
 
     @Test
-    public void testUpdateAuditory() {
+     void testUpdateAuditory() {
         int id = 1;
         Auditory auditoryDto = new Auditory();
         Auditory expectedAuditory = new Auditory();
@@ -133,7 +133,7 @@ public class AuditoryControllerTest {
     }
 
     @Test
-    public void testUpdateAuditory_Error() {
+     void testUpdateAuditory_Error() {
         int id = 1;
         Auditory auditoryDto = null;
         ResponseEntity<String> expectedResponse = ResponseEntity.badRequest().body("error");
@@ -144,7 +144,7 @@ public class AuditoryControllerTest {
     }
 
     @Test
-    public void testHandleMissingParameter() {
+     void testHandleMissingParameter() {
         String expectedErrorMessage = "Required parameter is missing";
 
         String errorMessage = auditoryController.handleMissingParameter(new MissingServletRequestParameterException("param", "String"));

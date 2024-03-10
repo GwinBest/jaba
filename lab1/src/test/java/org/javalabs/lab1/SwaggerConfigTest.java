@@ -12,19 +12,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(SwaggerConfig.class)
 @AutoConfigureMockMvc
 @ExtendWith(MockitoExtension.class)
-public class SwaggerConfigTest {
+ class SwaggerConfigTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    public void testSwaggerDocumentation() throws Exception {
+     void testSwaggerDocumentation() throws Exception {
         mockMvc.perform(get("/v2/api-docs"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    public void testSwaggerUI() throws Exception {
+     void testSwaggerUI() throws Exception {
         mockMvc.perform(get("/swagger-ui/index.html#/"))
                 .andExpect(status().isNotFound());
     }

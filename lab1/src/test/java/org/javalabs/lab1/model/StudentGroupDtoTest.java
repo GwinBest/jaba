@@ -4,10 +4,10 @@ import org.javalabs.lab1.model.studentgroupdto.StudentGroupDto;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class StudentGroupDtoTest {
+ class StudentGroupDtoTest {
 
     @Test
-    public void testGetterAndSetter() {
+     void testGetterAndSetter() {
         StudentGroupDto studentGroupDto = new StudentGroupDto();
         String name = "Group 1";
         int facultyId = 1;

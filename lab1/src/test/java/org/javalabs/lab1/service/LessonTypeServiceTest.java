@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class LessonTypeServiceTest {
+ class LessonTypeServiceTest {
 
     @Mock
     private LessonTypeRepository lessonTypeRepository;
@@ -23,7 +23,7 @@ public class LessonTypeServiceTest {
     private LessonTypeService lessonTypeService;
 
     @Test
-    public void testCreateLessonType() {
+     void testCreateLessonType() {
         LessonType lessonType = new LessonType();
         when(lessonTypeRepository.save(lessonType)).thenReturn(lessonType);
 
@@ -34,7 +34,7 @@ public class LessonTypeServiceTest {
     }
 
     @Test
-    public void testGetAllLessonTypes() {
+     void testGetAllLessonTypes() {
         List<LessonType> expectedLessonTypes = new ArrayList<>();
         when(lessonTypeRepository.findAll()).thenReturn(expectedLessonTypes);
 
@@ -44,7 +44,7 @@ public class LessonTypeServiceTest {
     }
 
     @Test
-    public void testGetLessonTypeById_ExistingId() {
+     void testGetLessonTypeById_ExistingId() {
         int id = 1;
         LessonType expectedLessonType = new LessonType();
         when(lessonTypeRepository.findById(id)).thenReturn(Optional.of(expectedLessonType));
@@ -55,7 +55,7 @@ public class LessonTypeServiceTest {
     }
 
     @Test
-    public void testGetLessonTypeById_NonExistingId() {
+     void testGetLessonTypeById_NonExistingId() {
         int id = 1;
         when(lessonTypeRepository.findById(id)).thenReturn(Optional.empty());
 
@@ -63,7 +63,7 @@ public class LessonTypeServiceTest {
     }
 
     @Test
-    public void testDeleteLessonType() {
+     void testDeleteLessonType() {
         int id = 1;
         doNothing().when(lessonTypeRepository).deleteById(id);
 

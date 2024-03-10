@@ -59,7 +59,7 @@ public class AuditoryService {
                     }
                 })
                 .filter(error -> error != null)
-                .collect(Collectors.toList());
+                .toList();
 
         if (!errors.isEmpty()) {
             throw new Exception("Errors occurred during bulk creation:\n" + String.join("\n", errors));

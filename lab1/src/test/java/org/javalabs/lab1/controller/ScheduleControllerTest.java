@@ -42,7 +42,7 @@ class ScheduleControllerTest {
     }
 
     @Test
-    public void testCreateSchedule_Success() {
+     void testCreateSchedule_Success() {
         Schedule scheduleEntity = new Schedule();
         when(scheduleService.getTeacherScheduleRepository()).thenReturn(scheduleRepository);
         when(scheduleService.getTeacherScheduleRepository().findByGroupName(null)).thenReturn(null);
@@ -56,7 +56,7 @@ class ScheduleControllerTest {
     }
 
     @Test
-    public void testCreateSchedule_Error_GroupNameExists() {
+     void testCreateSchedule_Error_GroupNameExists() {
         Schedule scheduleEntity = new Schedule();
         when(scheduleService.getTeacherScheduleRepository()).thenReturn(scheduleRepository);
         when(scheduleService.getTeacherScheduleRepository().findByGroupName(null)).thenReturn(new Schedule());
@@ -70,7 +70,7 @@ class ScheduleControllerTest {
     }
 
     @Test
-    public void testUpdateSchedule_Error_EntityNotFound() {
+     void testUpdateSchedule_Error_EntityNotFound() {
         int id = 1;
         Schedule scheduleEntity = new Schedule();
         when(scheduleService.getTeacherScheduleRepository()).thenReturn(scheduleRepository);

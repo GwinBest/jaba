@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class AuditoryServiceTest {
+ class AuditoryServiceTest {
 
     @Mock
     private AuditoryRepository auditoryRepository;
@@ -30,7 +30,7 @@ public class AuditoryServiceTest {
     private AuditoryService auditoryService;
 
     @Test
-    public void testCreateAuditoriesBulk_ValidData() {
+     void testCreateAuditoriesBulk_ValidData() {
         List<Auditory> auditories = new ArrayList<>();
         auditories.add(new Auditory());
         String group = "group1";
@@ -42,7 +42,7 @@ public class AuditoryServiceTest {
     }
 
     @Test
-    public void testCreateAuditoriesBulk_NoAuditoriesProvided() {
+     void testCreateAuditoriesBulk_NoAuditoriesProvided() {
         List<Auditory> auditories = new ArrayList<>();
         String group = "group1";
 
@@ -52,7 +52,7 @@ public class AuditoryServiceTest {
     }
 
     @Test
-    public void testCreateAuditoriesBulk_NoSuchAuditory() {
+     void testCreateAuditoriesBulk_NoSuchAuditory() {
         List<Auditory> auditories = new ArrayList<>();
         auditories.add(new Auditory());
         String group = "nonexistentGroup";
@@ -64,7 +64,7 @@ public class AuditoryServiceTest {
     }
 
     @Test
-    public void testGetAuditoriesByDateAndScheduleId() {
+     void testGetAuditoriesByDateAndScheduleId() {
         String date = "2024-03-10";
         String groupName = "group1";
         Schedule schedule = new Schedule();
@@ -80,7 +80,7 @@ public class AuditoryServiceTest {
 
 
     @Test
-    public void testGetAuditoryById_ExistingId() {
+     void testGetAuditoryById_ExistingId() {
         int id = 1;
         Auditory expectedAuditory = new Auditory();
         when(auditoryRepository.findById(id)).thenReturn(Optional.of(expectedAuditory));
@@ -91,7 +91,7 @@ public class AuditoryServiceTest {
     }
 
     @Test
-    public void testUpdateAuditory_ValidId() {
+     void testUpdateAuditory_ValidId() {
         int id = 1;
         Auditory existingAuditory = new Auditory();
         existingAuditory.setId(id);
@@ -107,7 +107,7 @@ public class AuditoryServiceTest {
     }
 
     @Test
-    public void testGetAuditoryById_NonExistingId() {
+     void testGetAuditoryById_NonExistingId() {
         int id = 1;
         when(auditoryRepository.findById(id)).thenReturn(Optional.empty());
 
@@ -117,7 +117,7 @@ public class AuditoryServiceTest {
     }
 
     @Test
-    public void testCreateAuditory_ValidData() {
+     void testCreateAuditory_ValidData() {
         Auditory auditoryEntity = new Auditory();
         String group = "group1";
         Schedule schedule = new Schedule();
@@ -131,12 +131,12 @@ public class AuditoryServiceTest {
     }
 
     @Test
-    public void testCreateAuditory_NullEntity() {
+     void testCreateAuditory_NullEntity() {
         assertThrows(IllegalArgumentException.class, () -> auditoryService.createAuditory(null, "group1"));
     }
 
     @Test
-    public void testCreateAuditory_NoSuchGroup() {
+     void testCreateAuditory_NoSuchGroup() {
         Auditory auditoryEntity = new Auditory();
         String group = "nonexistentGroup";
         when(scheduleRepository.findByGroupName(group)).thenReturn(null);
