@@ -10,11 +10,14 @@ public class ScheduleCache {
     private final Map<String, ApiResponse> cache = new ConcurrentHashMap<>();
 
     public void put(String key, ApiResponse value) {
-        cache.put(key, value);
+        if (key != null) {
+            cache.put(key, value);
+        } else {
+            throw new IllegalArgumentException("Key cannot be null");
+        }
     }
 
     public ApiResponse get(String key) {
         return cache.get(key);
     }
 }
-

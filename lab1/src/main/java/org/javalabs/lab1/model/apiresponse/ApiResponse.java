@@ -1,10 +1,9 @@
 package org.javalabs.lab1.model.apiresponse;
 
-import org.javalabs.lab1.model.scheduledto.Schedule;
-import org.javalabs.lab1.model.studentgroupdto.StudentGroupDto;
-
 import java.util.List;
 import java.util.Map;
+import org.javalabs.lab1.model.scheduledto.Schedule;
+import org.javalabs.lab1.model.studentgroupdto.StudentGroupDto;
 
 public class ApiResponse {
     private Object employeeDto;

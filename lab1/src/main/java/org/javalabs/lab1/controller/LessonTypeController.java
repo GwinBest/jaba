@@ -25,6 +25,10 @@ public class LessonTypeController {
     public ResponseEntity<LessonType> createLessonType(@RequestBody LessonType lessonType) {
         LOGGER.info("post endpoint /lesson-types was called");
 
+        if (lessonType == null || lessonType.getId() == 0) {
+            throw new IllegalArgumentException("Invalid lesson type data");
+        }
+
         LessonType createdLessonType = lessonTypeService.createLessonType(lessonType);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdLessonType);
     }
@@ -49,7 +53,11 @@ public class LessonTypeController {
     public ResponseEntity<Void> deleteLessonType(@PathVariable int id) {
         LOGGER.info("delete endpoint /lesson-types/{id} was called");
 
-        lessonTypeService.deleteLessonType(id);
-        return ResponseEntity.noContent().build();
+        try {
+            lessonTypeService.deleteLessonType(id);
+            return ResponseEntity.noContent().build();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

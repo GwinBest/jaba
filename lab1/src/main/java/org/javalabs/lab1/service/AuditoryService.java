@@ -7,8 +7,10 @@ import org.javalabs.lab1.entity.Schedule;
 import org.javalabs.lab1.model.auditorydto.AuditoryDto;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AuditoryService {
@@ -37,6 +39,31 @@ public class AuditoryService {
             return auditoryRepository.save(auditoryEntity);
         } else {
             throw new IllegalArgumentException(STATUS_CODE_ERROR);
+        }
+    }
+
+    public void createAuditoriesBulk(List<Auditory> auditories, String group) throws Exception {
+        if (auditories == null || auditories.isEmpty()) {
+            throw new IllegalArgumentException("No auditories provided");
+        }
+        if (scheduleRepository.findByGroupName(group) == null) {
+            throw new IllegalArgumentException("No such auditory");
+        }
+
+        List<String> errors = auditories.stream()
+                .map(auditory -> {
+                    try {
+                        createAuditory(auditory, group);
+                        return null;
+                    } catch (Exception e) {
+                        return "Error creating auditory: " + e.getMessage();
+                    }
+                })
+                .filter(error -> error != null)
+                .collect(Collectors.toList());
+
+        if (!errors.isEmpty()) {
+            throw new Exception("Errors occurred during bulk creation:\n" + String.join("\n", errors));
         }
     }
 
