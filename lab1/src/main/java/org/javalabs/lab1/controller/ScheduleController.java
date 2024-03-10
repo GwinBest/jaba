@@ -16,6 +16,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin("*")
 public class ScheduleController {
 	private final ScheduleService scheduleService;
 	private static final String STATUS_CODE_OK = "success";
