@@ -78,5 +78,4 @@ public class ApiResponse {
     public String getEndExamsDate() {
         return endExamsDate;
     }
-
 }
