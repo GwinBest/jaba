@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 public class AuditoryController {
     private final AuditoryService auditoryService;
-    private static final String STATUS_CODE_OK = "success";
+    static final String STATUS_CODE_OK = "success";
     private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
 
