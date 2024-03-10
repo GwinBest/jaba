@@ -7,8 +7,6 @@ import org.javalabs.lab1.entity.Auditory;
 import org.javalabs.lab1.entity.Schedule;
 import org.javalabs.lab1.model.auditorydto.AuditoryDto;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
