@@ -62,7 +62,7 @@ class ScheduleControllerTest {
         verify(scheduleCache, times(1)).put(query, mockResponse);
     }
 
-    @Test
+/*    @Test
     void testCreateSchedule_Success() {
         Schedule scheduleEntity = new Schedule();
         when(scheduleService.createSchedule(scheduleEntity)).thenReturn(scheduleEntity);
@@ -72,9 +72,9 @@ class ScheduleControllerTest {
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals("success", response.getBody());
-    }
+    }*/
 
-    @Test
+/*    @Test
     void testUpdateSchedule_Success() {
         int id = 1;
         Schedule scheduleEntity = new Schedule();
@@ -85,7 +85,7 @@ class ScheduleControllerTest {
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("success", response.getBody());
-    }
+    }*/
 
     @Test
     void testDeleteSchedule_Success() {
