@@ -4,6 +4,7 @@ import org.javalabs.lab1.cache.ScheduleCache;
 import org.javalabs.lab1.entity.Schedule;
 import org.javalabs.lab1.exceptionhandler.GlobalExceptionHandler;
 import org.javalabs.lab1.model.apiresponse.ApiResponse;
+import org.javalabs.lab1.service.RequestCounterService;
 import org.javalabs.lab1.service.ScheduleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +31,9 @@ public class ScheduleController {
 	@GetMapping("/schedule")
 	public ApiResponse search(@RequestParam(value = "studentGroup") String query) {
 		LOGGER.info("get endpoint /schedule was called");
+
+		RequestCounterService.incrementRequestCount();
+		RequestCounterService.printRequestCount();
 
 		ApiResponse cachedResponse = scheduleCache.get(query);
 		if (cachedResponse != null) {
