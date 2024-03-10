@@ -1,39 +1,39 @@
 package org.javalabs.lab1.cache;
 
 import org.javalabs.lab1.model.apiresponse.ApiResponse;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
 public class ScheduleCacheTest {
 
-    @Autowired
     private ScheduleCache scheduleCache;
 
-    @Test
-    public void testPutAndGet() {
-        ApiResponse apiResponse = new ApiResponse();
-
-        scheduleCache.put("key", apiResponse);
-
-        ApiResponse retrievedResponse = scheduleCache.get("key");
-
-        assertEquals(apiResponse, retrievedResponse);
+    @BeforeEach
+    void setUp() {
+        scheduleCache = new ScheduleCache();
     }
 
     @Test
-    public void testPutAndGet_NullKey() {
-        ApiResponse apiResponse = new ApiResponse();
+    void testPutAndGet_Success() {
+        String key = "key";
+        ApiResponse value = new ApiResponse();
 
-        assertThrows(IllegalArgumentException.class, () -> scheduleCache.put(null, apiResponse));
+        scheduleCache.put(key, value);
+
+        ApiResponse retrievedValue = scheduleCache.get(key);
+
+        assertEquals(value, retrievedValue);
     }
 
     @Test
-    public void testGet_NonExistentKey() {
-        ApiResponse retrievedResponse = scheduleCache.get("non_existent_key");
+    void testPut_NullKey_ExceptionThrown() {
+        assertThrows(IllegalArgumentException.class, () -> scheduleCache.put(null, new ApiResponse()));
+    }
 
-        assertNull(retrievedResponse);
+    @Test
+    void testGet_NonExistingKey_ReturnsNull() {
+        assertNull(scheduleCache.get("nonExistingKey"));
     }
 }
