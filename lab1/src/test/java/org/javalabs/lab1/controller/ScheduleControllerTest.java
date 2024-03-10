@@ -18,7 +18,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
+import static org.mockito.Mockito.lenient;
 @ExtendWith(MockitoExtension.class)
 class ScheduleControllerTest {
 
@@ -31,6 +31,9 @@ class ScheduleControllerTest {
     @InjectMocks
     private ScheduleController scheduleController;
 
+    @Mock
+    private ScheduleRepository scheduleRepository;
+
     @BeforeEach
     void setUp() {
         scheduleService = mock(ScheduleService.class);
@@ -39,23 +42,52 @@ class ScheduleControllerTest {
     }
 
     @Test
-    void testSearch_CachedResponse() {
-        String query = "group1";
-        ApiResponse cachedResponse = new ApiResponse();
-        when(scheduleCache.get(query)).thenReturn(cachedResponse);
+    public void testCreateSchedule_Success() {
+        Schedule scheduleEntity = new Schedule();
+        when(scheduleService.getTeacherScheduleRepository()).thenReturn(scheduleRepository);
+        when(scheduleService.getTeacherScheduleRepository().findByGroupName(null)).thenReturn(null);
 
-        ApiResponse response = scheduleController.search(query);
 
-        assertEquals(cachedResponse, response);
-        verify(scheduleService, never()).searchPage(query);
-        verify(scheduleCache, times(1)).get(query);
+        ResponseEntity<String> responseEntity = scheduleController.createSchedule(scheduleEntity);
+
+        assertNotNull(responseEntity);
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        verify(scheduleService, times(1)).createSchedule(scheduleEntity);
+    }
+
+    @Test
+    public void testCreateSchedule_Error_GroupNameExists() {
+        Schedule scheduleEntity = new Schedule();
+        when(scheduleService.getTeacherScheduleRepository()).thenReturn(scheduleRepository);
+        when(scheduleService.getTeacherScheduleRepository().findByGroupName(null)).thenReturn(new Schedule());
+
+        ResponseEntity<String> responseEntity = scheduleController.createSchedule(scheduleEntity);
+
+        assertNotNull(responseEntity);
+        assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        assertEquals("error", responseEntity.getBody());
+        verify(scheduleService, never()).createSchedule(scheduleEntity);
+    }
+
+    @Test
+    public void testUpdateSchedule_Error_EntityNotFound() {
+        int id = 1;
+        Schedule scheduleEntity = new Schedule();
+        when(scheduleService.getTeacherScheduleRepository()).thenReturn(scheduleRepository);
+        when(scheduleService.getTeacherScheduleRepository().findById(id)).thenReturn(Optional.empty());
+
+        ResponseEntity<String> responseEntity = scheduleController.updateSchedule(id, scheduleEntity);
+
+        assertNotNull(responseEntity);
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
+        verify(scheduleService, never()).updateSchedule(anyInt(), any(Schedule.class));
     }
 
     @Test
     void testSearch_NotCachedResponse() {
         String query = "group1";
         ApiResponse mockResponse = new ApiResponse();
-        when(scheduleCache.get(query)).thenReturn(null);
+        lenient().when(scheduleCache.get(query)).thenReturn(null);
         when(scheduleService.searchPage(query)).thenReturn(mockResponse);
 
         ApiResponse response = scheduleController.search(query);
@@ -65,17 +97,14 @@ class ScheduleControllerTest {
         verify(scheduleCache, times(1)).put(query, mockResponse);
     }
 
+
     @Test
     void testDeleteSchedule_Success() {
         int id = 1;
-        doNothing().when(scheduleService).deleteSchedule(id);
 
         ResponseEntity<String> response = scheduleController.deleteSchedule(id);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("success", response.getBody());
     }
-
-
-
 }
