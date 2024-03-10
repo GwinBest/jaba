@@ -6,14 +6,16 @@ import org.javalabs.lab1.dao.ScheduleRepository;
 import org.javalabs.lab1.entity.Schedule;
 import org.javalabs.lab1.model.apiresponse.ApiResponse;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class ScheduleServiceTest {
 
     @Mock
