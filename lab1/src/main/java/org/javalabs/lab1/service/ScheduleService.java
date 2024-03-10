@@ -85,6 +85,7 @@ public class ScheduleService {
             }
         }
     }
+
     public Schedule createSchedule(Schedule scheduleEntity) {
         if (scheduleEntity == null) {
             throw new IllegalArgumentException("error");
