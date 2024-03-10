@@ -1,5 +1,6 @@
 package org.javalabs.lab1.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.javalabs.lab1.dao.AuditoryRepository;
 import org.javalabs.lab1.dao.ScheduleRepository;
 import org.javalabs.lab1.entity.Auditory;
@@ -78,50 +79,25 @@ public class AuditoryServiceTest {
         assertThrows(IllegalArgumentException.class, () -> auditoryService.createAuditory(auditoryEntity, group));
     }
 
-/*    @Test
-    public void testCreateAuditoriesBulk_ValidData() throws Exception {
-        List<Auditory> auditories = new ArrayList<>();
-        String group = "group1";
-        when(scheduleRepository.findByGroupName(group)).thenReturn(new Schedule());
-        when(auditoryRepository.save(any(Auditory.class))).thenReturn(new Auditory());
-
-        auditoryService.createAuditoriesBulk(auditories, group);
-    }*/
-
-/*    @Test
-    public void testGetAuditoriesByDateAndScheduleId_ValidData() {
-        String date = "2024-03-10";
-        String groupName = "group1";
-        List<AuditoryDto> expectedAuditoryDtoList = new ArrayList<>();
-        when(scheduleRepository.findByGroupName(groupName)).thenReturn(new Schedule());
-        when(auditoryRepository.findByDateAndScheduleId(date, 1)).thenReturn(expectedAuditoryDtoList);
-
-        List<AuditoryDto> actualAuditoryDtoList = auditoryService.getAuditoriesByDateAndScheduleId(date, groupName);
-
-        assertEquals(expectedAuditoryDtoList, actualAuditoryDtoList);
-    }*/
-
-
-/*    @Test
-    public void testUpdateAuditory_ValidData() {
+    @Test
+    void testDeleteAuditory_ValidId() {
         int id = 1;
-        Auditory existingAuditory = new Auditory();
-        Auditory updatedAuditory = new Auditory();
-        updatedAuditory.setId(id);
-        when(auditoryRepository.findById(id)).thenReturn(Optional.of(existingAuditory));
-        when(auditoryRepository.save(updatedAuditory)).thenReturn(updatedAuditory);
+        when(auditoryRepository.findById(id)).thenReturn(Optional.empty());
 
-        Auditory returnedAuditory = auditoryService.updateAuditory(id, updatedAuditory);
+        assertThrows(EntityNotFoundException.class, () -> auditoryService.deleteAuditory(id));
 
-        assertEquals(updatedAuditory, returnedAuditory);
-    }*/
+        verify(auditoryRepository, never()).deleteById(id);
+    }
 
     @Test
-    public void testDeleteAuditory_ValidId() {
+    void testDeleteAuditory_InvalidId() {
         int id = 1;
-        doNothing().when(auditoryRepository).deleteById(id);
+        Auditory auditory = new Auditory();
+        when(auditoryRepository.findById(id)).thenReturn(Optional.of(auditory));
 
         auditoryService.deleteAuditory(id);
+
+        verify(auditoryRepository, times(1)).deleteById(id);
     }
 
 }
