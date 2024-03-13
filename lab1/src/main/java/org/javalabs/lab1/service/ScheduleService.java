@@ -37,8 +37,7 @@ public class ScheduleService {
 
         ApiResponse response = restTemplate.getForObject(apiUrl, ApiResponse.class);
 
-        if (response != null)
-        {
+        if (response != null) {
             Schedule scheduleEntity = scheduleRepository.findByGroupName(response.getStudentGroupDto().getName());
 
             if(scheduleEntity == null) {

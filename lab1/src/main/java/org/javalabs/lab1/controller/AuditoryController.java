@@ -1,5 +1,6 @@
 package org.javalabs.lab1.controller;
 
+import java.util.List;
 import org.javalabs.lab1.entity.Auditory;
 import org.javalabs.lab1.exceptionhandler.GlobalExceptionHandler;
 import org.javalabs.lab1.model.auditorydto.AuditoryDto;
@@ -8,15 +9,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.MissingServletRequestParameterException;
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class AuditoryController {
     private final AuditoryService auditoryService;
     static final String STATUS_CODE_OK = "success";
-    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuditoryController.class);
 
 
     public AuditoryController(AuditoryService service) {
@@ -41,7 +41,7 @@ public class AuditoryController {
             @RequestParam("groupName") String groupName) {
         LOGGER.info("get endpoint /useful was called");
 
-        return auditoryService.getAuditoriesByDateAndScheduleId(date,groupName);
+        return auditoryService.getAuditoriesByDateAndScheduleId(date, groupName);
     }
 
     @PostMapping("/auditory/{group}")
@@ -57,7 +57,9 @@ public class AuditoryController {
             auditoryService.createAuditory(auditoryEntity, group);
             return ResponseEntity.ok(STATUS_CODE_OK);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error: " + e.getMessage());
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("error: " + e.getMessage());
         }
     }
 
@@ -70,7 +72,9 @@ public class AuditoryController {
             auditoryService.createAuditoriesBulk(auditories, group);
             return ResponseEntity.ok(STATUS_CODE_OK);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error: " + e.getMessage());
         }
     }
 

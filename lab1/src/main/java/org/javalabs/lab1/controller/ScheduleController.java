@@ -21,7 +21,7 @@ public class ScheduleController {
 	private final ScheduleService scheduleService;
 	private static final String STATUS_CODE_OK = "success";
 	private final ScheduleCache scheduleCache;
-	private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ScheduleController.class);
 
 
 	public ScheduleController(ScheduleService service, ScheduleCache scheduleCache) {

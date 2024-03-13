@@ -1,5 +1,7 @@
 package org.javalabs.lab1.service;
 
+import java.util.List;
+import java.util.Optional;
 import jakarta.persistence.EntityNotFoundException;
 import org.javalabs.lab1.dao.AuditoryRepository;
 import org.javalabs.lab1.dao.ScheduleRepository;
@@ -7,9 +9,6 @@ import org.javalabs.lab1.entity.Auditory;
 import org.javalabs.lab1.entity.Schedule;
 import org.javalabs.lab1.model.auditorydto.AuditoryDto;
 import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class AuditoryService {
@@ -32,7 +31,7 @@ public class AuditoryService {
             throw new IllegalArgumentException(STATUS_CODE_ERROR);
         }
         Schedule schedule = scheduleRepository.findByGroupName(group);
-        if(schedule != null) {
+        if (schedule != null) {
             auditoryEntity.setSchedule(schedule);
 
             return auditoryRepository.save(auditoryEntity);
@@ -41,7 +40,7 @@ public class AuditoryService {
         }
     }
 
-    public void createAuditoriesBulk(List<Auditory> auditories, String group) throws Exception {
+    public void createAuditoriesBulk(List<Auditory> auditories, String group) {
         if (auditories == null || auditories.isEmpty()) {
             throw new IllegalArgumentException("No auditories provided");
         }
@@ -62,7 +61,8 @@ public class AuditoryService {
                 .toList();
 
         if (!errors.isEmpty()) {
-            throw new Exception("Errors occurred during bulk creation:\n" + String.join("\n", errors));
+            throw new IllegalArgumentException("Errors occurred during bulk creation:\n"
+                    + String.join("\n", errors));
         }
     }
 

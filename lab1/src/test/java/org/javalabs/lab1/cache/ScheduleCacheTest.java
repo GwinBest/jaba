@@ -29,7 +29,9 @@ class ScheduleCacheTest {
 
     @Test
     void testPut_NullKey_ExceptionThrown() {
-        assertThrows(IllegalArgumentException.class, () -> scheduleCache.put(null, new ApiResponse()));
+        assertThrows(IllegalArgumentException.class, () -> {
+            scheduleCache.put(null, new ApiResponse());
+        });
     }
 
     @Test

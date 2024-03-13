@@ -1,8 +1,11 @@
 package org.javalabs.lab1.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class RequestCounterService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RequestCounterService.class);
     private static AtomicInteger requestCount = new AtomicInteger(0);
 
     public static synchronized void incrementRequestCount() {
@@ -14,6 +17,7 @@ public class RequestCounterService {
     }
 
     public static void printRequestCount() {
-        System.out.println("Current request count: " + getRequestCount());
+        LOGGER.info("My Message");
+        LOGGER.info("Current request count: " + getRequestCount());
     }
 }

@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 public class LessonTypeController {
     private final LessonTypeService lessonTypeService;
-    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LessonTypeController.class);
 
 
     public LessonTypeController(LessonTypeService lessonTypeService) {
