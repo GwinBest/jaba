@@ -2,7 +2,6 @@ package org.javalabs.lab1.controller;
 
 import java.util.List;
 import org.javalabs.lab1.entity.Auditory;
-import org.javalabs.lab1.exceptionhandler.GlobalExceptionHandler;
 import org.javalabs.lab1.model.auditorydto.AuditoryDto;
 import org.javalabs.lab1.service.AuditoryService;
 import org.slf4j.Logger;

@@ -1,7 +1,6 @@
 package org.javalabs.lab1.controller;
 
 import org.javalabs.lab1.entity.LessonType;
-import org.javalabs.lab1.exceptionhandler.GlobalExceptionHandler;
 import org.javalabs.lab1.service.LessonTypeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,6 +1,7 @@
 package org.javalabs.lab1.service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import jakarta.persistence.EntityNotFoundException;
 import org.javalabs.lab1.dao.AuditoryRepository;
@@ -57,7 +58,7 @@ public class AuditoryService {
                         return "Error creating auditory: " + e.getMessage();
                     }
                 })
-                .filter(error -> error != null)
+                .filter(Objects::nonNull)
                 .toList();
 
         if (!errors.isEmpty()) {

@@ -2,7 +2,6 @@ package org.javalabs.lab1.controller;
 
 import org.javalabs.lab1.cache.ScheduleCache;
 import org.javalabs.lab1.entity.Schedule;
-import org.javalabs.lab1.exceptionhandler.GlobalExceptionHandler;
 import org.javalabs.lab1.model.apiresponse.ApiResponse;
 import org.javalabs.lab1.service.RequestCounterService;
 import org.javalabs.lab1.service.ScheduleService;
