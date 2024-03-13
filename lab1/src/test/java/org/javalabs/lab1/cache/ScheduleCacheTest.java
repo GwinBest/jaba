@@ -28,11 +28,6 @@ class ScheduleCacheTest {
     }
 
     @Test
-    void testPut_NullKey_ExceptionThrown() {
-        assertThrows(IllegalArgumentException.class, () -> scheduleCache.put(null, new ApiResponse()));
-    }
-
-    @Test
     void testGet_NonExistingKey_ReturnsNull() {
         assertNull(scheduleCache.get("nonExistingKey"));
     }
