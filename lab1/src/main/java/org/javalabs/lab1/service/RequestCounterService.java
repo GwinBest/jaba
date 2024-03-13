@@ -15,5 +15,4 @@ public class RequestCounterService {
         return requestCount.get();
     }
 
-
 }

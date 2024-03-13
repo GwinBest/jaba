@@ -32,7 +32,6 @@ public class ScheduleController {
 		LOGGER.info("get endpoint /schedule was called");
 
 		RequestCounterService.incrementRequestCount();
-		RequestCounterService.printRequestCount();
 
 		ApiResponse cachedResponse = scheduleCache.get(query);
 		if (cachedResponse != null) {
