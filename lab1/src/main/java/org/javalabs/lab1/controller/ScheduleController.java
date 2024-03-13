@@ -15,7 +15,6 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("*")
 public class ScheduleController {
 	private final ScheduleService scheduleService;
 	private static final String STATUS_CODE_OK = "success";
@@ -33,6 +32,7 @@ public class ScheduleController {
 		LOGGER.info("get endpoint /schedule was called");
 
 		RequestCounterService.incrementRequestCount();
+		RequestCounterService.printRequestCount();
 
 		ApiResponse cachedResponse = scheduleCache.get(query);
 		if (cachedResponse != null) {
