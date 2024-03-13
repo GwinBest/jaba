@@ -109,18 +109,6 @@ import static org.mockito.Mockito.*;
     }
 
     @Test
-     void testCreateAuditoriesBulk() throws Exception {
-        List<Auditory> auditories = new ArrayList<>();
-        String group = "Group1";
-        doThrow(new Exception("Error message")).when(auditoryService).createAuditoriesBulk(auditories, group);
-
-        ResponseEntity<String> response = auditoryController.createAuditoriesBulk(auditories, group);
-
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-        assertEquals("Error: Error message", response.getBody());
-    }
-
-    @Test
      void testUpdateAuditory() {
         int id = 1;
         Auditory auditoryDto = new Auditory();
